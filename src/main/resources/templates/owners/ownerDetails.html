@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'clientes')}">
+
+  <body>
+  
+  
+    <h2>Informações do Cliente</h2>
+  
+  
+    <table class="table table-striped" th:object="${owner}">
+      <tr>
+        <th>Nome</th>
+        <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
+      </tr>
+      <tr>
+        <th>Endereço</th>
+        <td th:text="*{address}" /></td>
+      </tr>
+      <tr>
+        <th>CEP</th>
+        <td th:text="*{city}" /></td>
+      </tr>
+      <tr>
+    </table>
+  
+    <a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-default">Editar Cliente</a>
+    <a th:href="@{{id}/pets/new(id=${owner.id})}" class="btn btn-default">Adiciona Contato</a>
+  
+    <br />
+    <br />
+    <br />
+    <h2>Contatos</h2>
+  
+    <table class="table table-striped">
+  
+      <tr th:each="pet : ${owner.pets}">
+        <td valign="top">
+          <dl class="dl-horizontal">
+            <dt>E-mail</dt>
+            <dd th:text="${pet.name}" /></dd>
+            <dt>Telephone</dt>
+            <dd th:text="${pet.telephone}" /></dd>
+          </dl>
+        </td>
+        <td valign="top">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+              </tr>
+            </thead>
+            <tr>
+              <td><a
+                th:href="@{{ownerId}/pets/{petId}/edit(ownerId=${owner.id},petId=${pet.id})}">Editar Contato</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+  
+    </table>
+  
+  </body>
+
+</html>
